@@ -33,48 +33,7 @@ Note that the Readability Parser API is freely available for _non-commercial use
 
 = Extensions =
 
-The plugin includes actions and filters primarily for customizing the formatting of the text for the text-to-speech engine. You may use these hooks to improve how the TTS engine reads the text on a given site, for instance by stripping out footnotes or removing image captions. For an example of such a plugin, see the following sample plugin which improves formatting of Wikipedia articles:
-
-<pre lang="php">
-<?php
-/**
- * Plugin Name: Listenability: Wikipedia
- * Author: Weston Ruter
- * Description: Format the text for listening (the say command).
- */
-
-/**
- * Strip out elements from Wikipedia articles.
- *
- * @param array $args {
- *     @type DOMDocument $document
- *     @type DOMXPath    $xpath
- *     @type string      $url
- *     @type array|null  $readability_parser_response
- * }
- */
-add_action( 'listenability_document', function ( $args ) {
-	$is_wikipedia = ( false !== strpos( parse_url( $args['url'], PHP_URL_HOST ), 'wikipedia' ) );
-	if ( ! $is_wikipedia ) {
-		return;
-	}
-
-	$removed_elements = array(
-		'//span[@class = "mw-editsection"]',
-		'//sup[@class = "reference"]',
-		'//sup[@class = "Template-Fact"]',
-		'//div[@class = "reflist"]',
-		'//figure',
-		'//div[@class = "printfooter"]',
-		'//div[@class = "catlinks"]',
-		'//div[@class = "toc"]',
-		'//table',
-	);
-	foreach ( $args['xpath']->query( join( ' | ', $removed_elements ) ) as $element ) {
-		$element->parentNode->removeChild( $element );
-	}
-} );
-</pre>
+The plugin includes actions and filters primarily for customizing the formatting of the text for the text-to-speech engine. You may use these hooks to improve how the TTS engine reads the text on a given site, for instance by stripping out footnotes or removing image captions. For an example of such a plugin, see the [sample plugin which improves formatting of Wikipedia articles](https://gist.github.com/westonruter/dfaa45b026a2bb6a36e0).
 
 See the [plugin source code](https://github.com/westonruter/wp-listenability/tree/master/php) to see which additional plugin hooks are available.
 
