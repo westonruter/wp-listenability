@@ -35,7 +35,7 @@ Note that the Readability Parser API is freely available for _non-commercial use
 
 The plugin includes actions and filters primarily for customizing the formatting of the text for the text-to-speech engine. You may use these hooks to improve how the TTS engine reads the text on a given site, for instance by stripping out footnotes or removing image captions. For an example of such a plugin, see the following sample plugin which improves formatting of Wikipedia articles:
 
-```php
+<pre lang="php">
 <?php
 /**
  * Plugin Name: Listenability: Wikipedia
@@ -74,7 +74,7 @@ add_action( 'listenability_document', function ( $args ) {
 		$element->parentNode->removeChild( $element );
 	}
 } );
-```
+</pre>
 
 See the [plugin source code](https://github.com/westonruter/wp-listenability/tree/master/php) to see which additional plugin hooks are available.
 
