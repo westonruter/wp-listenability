@@ -197,13 +197,19 @@ class Readability {
 		}
 		set_transient( $transient_key, $r, $ttl );
 
+		$post_arr = $post->to_array();
+
 		if ( is_wp_error( $r ) ) {
 			update_post_meta( $post->ID, 'readability_status', wp_slash( 'wp_request_error:' . $r->get_error_code() . '; ' . $r->get_error_message() ) );
+			$post_arr['post_status'] = 'draft';
+			wp_update_post( $post_arr ); // Send post back to draft so it won't appear in the feed.
 			return;
 		}
 
 		if ( 200 !== wp_remote_retrieve_response_code( $r ) ) {
 			update_post_meta( $post->ID, 'readability_status', wp_slash( 'wp_http_error: HTTP ' . wp_remote_retrieve_response_code( $r ) . ': ' . wp_remote_retrieve_response_message( $r ) . "\n" . wp_remote_retrieve_body( $r ) ) );
+			$post_arr['post_status'] = 'draft';
+			wp_update_post( $post_arr ); // Send post back to draft so it won't appear in the feed.
 			return;
 		}
 
@@ -212,6 +218,8 @@ class Readability {
 		$response = json_decode( $body, true );
 		if ( empty( $response['content'] ) ) {
 			update_post_meta( $post->ID, 'readability_status', 'error:no_content' );
+			$post_arr['post_status'] = 'draft';
+			wp_insert_post( $post_arr ); // Send post back to draft so it won't appear in the feed.
 			return;
 		}
 
