@@ -148,6 +148,10 @@ class Presentation {
 			/** @var \DOMElement $li */
 			$li->appendChild( $document->createTextNode( "\n" ) );
 		}
+		foreach ( $xpath->query( '//audio' ) as $audio ) {
+			/** @var \DOMElement $audio */
+			$audio->parentNode->removeChild( $audio );
+		}
 
 		$element_names = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'ol', 'blockquote', 'q', 'abbr', 'strong', 'em', 'i', 'b', 'hr' );
 		$element_id = 0;
