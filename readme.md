@@ -49,6 +49,10 @@ Upon activation of the plugin, navigate to the Options > Listenability admin pag
 
 ## Changelog ##
 
+### 0.1.1 ###
+* Improve handling of Readability API errors by sending post back to draft.
+* Remove audio elements from TTS text.
+
 ### 0.1 ###
 Initial release.
 

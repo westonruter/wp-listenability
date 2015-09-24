@@ -3,7 +3,7 @@
  * Plugin Name: Listenability
  * Description: Create a text-to-speech podcast of your posts, with the content from embedded URLs supplied by Readability's Parser API. Re-incarnation of SoundGecko.
  * Plugin URI: https://github.com/westonruter/wp-listenability
- * Version: 0.1
+ * Version: 0.1.1
  * Author: Weston Ruter
  * Author URI: https://weston.ruter.net/
  * License: GPLv2+
